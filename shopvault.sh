@@ -28,7 +28,7 @@ if [[ -d "$files_location" ]];then
             #run the script capture its output     
             cat <(bash /home/hpuser/Downloads/shop/backup_db.sh) > "backup_${date_value}.sql"
             current_dir=$(pwd)
-            bzip2 "${current_dir}/backup_${date_value}.sql"
+            bzip2 -f "${current_dir}/backup_${date_value}.sql"
             rm -f "backup_${date_value}.sql"
     fi         
 else
