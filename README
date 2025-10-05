@@ -1,0 +1,10 @@
+feat: add ShopVault backup script for shop data
+
+- Automatically backs up customers_data and inventory_data folders
+  with timestamped .tar.bz2 archives.
+- Detects and runs backup_db.sh to save database dumps, compressing
+  the SQL output.
+- Logs all actions and missing files into backup.log for audit.
+- Uses bzip2 compression to keep backups compact.
+- Designed for ~/Downloads/shop by default, configurable via
+  files_location variable.
