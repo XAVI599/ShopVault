@@ -10,17 +10,17 @@ files_location=~/Downloads/shop
 
 if [[ -d "$files_location" ]];then
        if [[ -d $files_location/customers_data ]];then 
-           if find "$HOME/Downloads/shop/customers_data" -maxdepth 1 -type f \( -name "*.csv" -o -name "*.txt" \) |tee -a backup.log|grep -E -q '(csv|txt)' ;then
-                 ls -la ../Downloads/shop/customers_data/ | grep -Eo '[a-zA-Z0-9]+\.(txt|csv)'| sed "s|\(.*\)|$files_location/customers_data/\1|" | tar -cjf "customer_${date_value}.ta>
+           if find "$HOME/Downloads/shop/customers_data" -maxdepth 1 -type f \( -name "*.csv" -o -name "*.txt" \) |tee -a backup.log|grep -E -q '($csv|txt$)' ;then
+ 		 ls -la ../Downloads/shop/customers_data/ | grep -Eo '[a-zA-Z0-9]+\.(txt|csv)'| sed "s|\(.*\)|$files_location/customers_data/\1|" | tar -cjf "customer_${date_value}.tar.bz2" -T- 2>>backup.log
          else
-            echo 'No files found in customers_data folder' >> backup.log  
+            echo 'No csv or txt files found in customers_data folder' >> backup.log  
          fi
       fi
       if [[ -d $files_location/inventory_data ]];then
-             if find "$HOME/Downloads/shop/inventory_data" -maxdepth 1 -type f \( -name "*.csv" -o -name "*.txt" \)|tee -a backup.log |grep -E -q '(csv|txt)' ;then
-                 ls -la ../Downloads/shop/inventory_data/ | grep -Eo '[a-zA-Z0-9]+\.(txt|csv)'| sed "s|\(.*\)|$files_location/inventory_data/\1|" | tar -cjf "inventory_${date_value}.t>
+             if find "$HOME/Downloads/shop/inventory_data" -maxdepth 1 -type f \( -name "*.csv" -o -name "*.txt" \)|tee -a backup.log |grep -E -q '(csv$|txt$)' ;then
+                 ls -la ../Downloads/shop/inventory_data/ | grep -Eo '[a-zA-Z0-9]+\.(txt|csv)'| sed "s|\(.*\)|$files_location/inventory_data/\1|" | tar -cjf "inventory_${date_value}.tar.bz2" -T- 2>> backup.log
             else
-             echo 'No files found in inventory_data folder' >> backup.log  
+             echo 'No csv or text files found in inventory_data folder' >> backup.log  
            fi
      fi
 
