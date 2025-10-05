@@ -1,10 +1,60 @@
-feat: add ShopVault backup script for shop data
+Welcome to ShopVault, the ultimate Bash script for keeping your shop’s data safe and sound. Think of it as a trusty sidekick that quietly backs up your files, compresses them efficiently, and logs everything — so you never have to worry about lost data again.
 
-- Automatically backs up customers_data and inventory_data folders
-  with timestamped .tar.bz2 archives.
-- Detects and runs backup_db.sh to save database dumps, compressing
-  the SQL output.
-- Logs all actions and missing files into backup.log for audit.
-- Uses bzip2 compression to keep backups compact.
-- Designed for ~/Downloads/shop by default, configurable via
-  files_location variable.
+🔹 Features
+
+Automatic File Backups
+ShopVault searches your customers_data and inventory_data folders for .csv and .txt files and packages them into bzip2-compressed .tar.bz2 archives. Each archive is timestamped for easy version tracking.
+
+Database Backups
+If a backup_db.sh script exists in your shop folder, ShopVault will run it, capture its output, compress the SQL dump, and clean up the uncompressed file. This keeps your database backups lean and organized.
+
+Logging
+Every action — whether it’s a successful backup or a missing file — is logged in backup.log. This ensures you can always audit your backup process and check what happened, without reading cryptic error messages.
+
+Configurable Paths
+By default, ShopVault operates in ~/Downloads/shop. You can easily change the files_location variable to point to any other directory where your shop data lives.
+
+Compression Ninja
+ShopVault uses bzip2 compression for maximum storage efficiency, ensuring your backups are compact but fully retrievable.
+
+Safe and Silent
+Missing folders or files won’t break the script. ShopVault handles everything gracefully, logging issues instead of failing loudly.
+
+How to Use
+
+Place the script in your shop folder, e.g., ~/Downloads/shop/backup.sh.
+
+Make it executable:
+
+chmod +x backup.sh
+
+./backup.sh
+
+Watch as ShopVault generates:
+
+customer_YYYY_MM_DD.tar.bz2
+
+inventory_YYYY_MM_DD.tar.bz2
+
+backup_YYYY_MM_DD.sql.bz2
+
+All files are neatly compressed and timestamped for easy identification.
+
+~/Downloads/shop/
+├── backup.sh
+├── backup_db.sh
+├── customers_data/
+│   ├── customer1.csv
+│   └── customer2.txt
+└── inventory_data/
+    ├── inventory1.csv
+    └── inventory2.txt
+
+
+All messages are appended to backup.log, including:
+
+Files successfully backed up
+
+Missing folders or files
+
+Database backup completion
